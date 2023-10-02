@@ -1,2 +1,1 @@
-# Assignment - 1 (C# & .Net)
-
+# csharp-assignment-1
