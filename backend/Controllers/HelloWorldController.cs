@@ -9,7 +9,7 @@ namespace HelloWorldAPI.Controllers
         [HttpGet]
         public ActionResult<string> Get()
         {
-            return "Hello World";
+            return "Hello World (Rock, Paper, Scissors)";
         }
     }
 }
