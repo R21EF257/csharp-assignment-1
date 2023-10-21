@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock | Paper | Scissors</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+    <link rel="icon" type="image/png" href="favicon/favicon.png">
+    <style>
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        #heartSVG {
+            width: 200px;
+            height: auto;
+        }
+
+        body {
+            background-color: #272829;
+            font-family: "Inter", sans-serif;
+            margin: 0px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #play {
+            background-color: #fff6e0;
+            color: #272829;
+            padding: 20px 95px;
+            border-radius: 60px;
+            font-family: "Inter", sans-serif;
+            font-size: 35px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-left: 25%;
+        }
+
+        footer {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            padding: 20px 0;
+            text-align: center;
+            font-family: "Inter", sans-serif;
+            font-size: 16px;
+            color: #aaa;
+        }
+
+        footer a {
+            color: #aaa;
+            text-decoration: none;
+            transition: 0.3s;
+            font-weight: 700;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .heart {
+            color: red;
+        }
+
+        h1 {
+            top: 5%;
+            left: 5%;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #fff6e0;
+        }
+
+        .title {
+            font-size: 60px;
+            font-family: 'Inter', Helvetica;
+            font-weight: bold;
+            color: #fff6e0;
+        }
+
+        .subtitle {
+            font-weight: 300;
+            display: inline-block;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            /* This will align items vertically in the middle */
+            justify-content: center;
+            /* This will center items horizontally */
+        }
+
+        .title {
+            display: flex;
+            justify-content: center;
+            /* to center the text horizontally */
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+
+        <h1 class="title" style="
+        margin-top: 0px;
+        margin-bottom: 0px;
+    ">
+            Rock,&nbsp;<span class="subtitle">Paper</span>
+        </h1>
+        </div>
+        <div class="container">
+            <h1 class="title">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                    class="subtitle">&amp;</span>&nbsp;Scissors
+            </h1>
+        </div>
+        <div class="container">
+            <svg id="heartSVG" version="1.0" xmlns="http://www.w3.org/2000/svg" width="632.000000pt"
+                height="634.000000pt" viewBox="0 0 632.000000 634.000000" preserveAspectRatio="xMidYMid meet">
+                <g transform="translate(0.000000,634.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                    <path d="M3181 5495 c-265 -60 -484 -201 -621 -399 -54 -79 -129 -249 -156
+    -353 -44 -166 -35 -391 22 -559 42 -127 147 -297 235 -380 72 -68 168 -144
+    182 -144 14 0 418 177 493 216 55 29 108 74 149 128 28 37 42 62 302 541 108
+    198 222 405 253 460 99 172 130 239 130 282 0 56 -37 122 -88 158 -38 26 -52
+    30 -111 30 -78 0 -120 -22 -161 -84 -44 -67 -620 -1140 -720 -1341 -23 -47
+    -44 -87 -46 -89 -8 -8 -125 113 -169 174 -86 121 -125 239 -125 385 0 108 18
+    181 75 297 54 109 129 191 231 251 92 54 167 74 299 81 l110 6 82 150 c46 83
+    82 154 80 159 -13 38 -321 60 -446 31z" />
+                    <path d="M2275 5236 c-361 -187 -521 -301 -745 -532 -335 -345 -557 -759 -648
+    -1209 -21 -105 -39 -295 -27 -283 4 4 22 41 41 83 70 162 278 381 461 486 34
+    19 44 32 53 67 32 128 187 387 322 539 115 128 224 220 406 342 67 45 92 67
+    92 82 0 67 103 305 186 430 24 37 44 69 44 73 0 15 -35 0 -185 -78z" />
+                    <path d="M4460 5150 c0 -5 24 -58 54 -117 63 -127 110 -268 130 -393 l15 -89
+    106 -102 c298 -287 489 -678 530 -1082 6 -59 4 -70 -11 -81 -16 -12 -13 -19
+    43 -82 67 -76 147 -192 185 -269 40 -80 95 -234 108 -305 7 -36 16 -69 20 -73
+    11 -12 39 187 52 365 31 421 -65 879 -262 1255 -194 371 -484 684 -833 902
+    -127 79 -137 84 -137 71z" />
+                    <path d="M4161 4878 c-52 -95 -94 -184 -94 -198 0 -14 5 -49 11 -79 17 -75 15
+    -216 -3 -286 -28 -111 -91 -223 -169 -301 -77 -77 -141 -112 -411 -229 -131
+    -57 -259 -113 -655 -288 -521 -230 -642 -283 -748 -328 -209 -88 -260 -137
+    -376 -361 -38 -73 -103 -198 -146 -278 -291 -545 -350 -660 -356 -697 -21
+    -133 130 -254 252 -200 78 34 91 50 211 272 39 72 84 155 101 185 16 30 81
+    152 144 270 156 291 183 336 236 386 59 57 124 90 597 299 1272 564 1264 560
+    1407 701 296 292 390 777 218 1129 -39 79 -103 175 -118 175 -4 0 -49 -78
+    -101 -172z" />
+                    <path d="M1855 3738 c-175 -16 -322 -68 -468 -165 -374 -248 -546 -716 -426
+    -1155 22 -81 105 -257 142 -301 l24 -29 50 84 c28 45 76 130 106 187 l57 103
+    -22 62 c-29 83 -31 272 -4 361 71 229 235 393 462 461 70 22 275 25 340 6 37
+    -11 46 -9 120 22 86 37 346 156 353 162 6 5 -40 54 -51 54 -5 0 -25 10 -46 23
+    -63 40 -213 95 -302 111 -109 20 -221 25 -335 14z" />
+                    <path d="M4271 3410 c-100 -14 -192 -45 -371 -127 -91 -41 -250 -112 -355
+    -158 -604 -264 -1309 -586 -1331 -609 -12 -12 -30 -43 -120 -211 -39 -74 -51
+    -105 -41 -105 87 0 553 98 598 126 24 14 3 -22 -53 -98 -104 -136 -230 -222
+    -390 -265 -65 -17 -228 -24 -284 -11 l-32 7 -70 -127 c-83 -152 -115 -213
+    -110 -217 2 -1 37 -11 78 -21 60 -15 109 -19 250 -18 160 1 183 3 265 28 416
+    125 687 410 776 816 13 58 28 108 34 112 9 7 53 27 335 153 405 182 649 288
+    730 316 90 31 103 33 235 34 121 0 149 -3 210 -24 187 -63 327 -185 410 -356
+    41 -88 55 -152 55 -263 -1 -189 -55 -317 -195 -457 -135 -135 -296 -195 -490
+    -182 -208 14 -377 96 -524 253 -82 88 -118 144 -160 255 -30 76 -64 239 -51
+    239 8 0 176 -85 295 -150 39 -21 222 -117 408 -214 185 -97 348 -183 362 -192
+    l25 -16 0 99 c0 213 -84 377 -254 497 -33 24 -165 96 -292 160 l-230 116 -100
+    -47 c-54 -26 -209 -95 -344 -154 -281 -123 -262 -102 -235 -246 82 -441 365
+    -772 785 -915 383 -131 810 -33 1079 247 129 135 209 274 258 450 25 92 28
+    114 27 270 0 156 -2 177 -27 260 -136 444 -512 736 -967 750 -69 2 -154 0
+    -189 -5z" />
+                    <path d="M1596 1471 c-7 -10 144 -160 234 -232 263 -211 658 -392 1010 -463
+    503 -102 1056 -23 1563 224 182 88 456 284 424 302 -8 4 -41 -1 -75 -12 -167
+    -50 -384 -53 -562 -8 l-94 25 -78 -39 c-319 -155 -692 -203 -1043 -133 -248
+    50 -451 136 -683 291 -26 18 -38 21 -65 14 -128 -35 -346 -28 -494 15 -92 26
+    -128 31 -137 16z" />
+                </g>
+            </svg>
+            <button id="play">Play</button>
+        </div>
+    </main>
+    <footer>
+        <p>
+            Made with <span class="heart">♥</span>
+            <a href="https://www.linkedin.com/in/sahana-karishetti-student/">Sahana Karishetti</a>
+            © 2023 -
+            <a href="https://github.com/R21EF257/csharp-assignment-1">GitHub</a>
+        </p>
+    </footer>
+</body>
+<script>
+    // Blink animation
+    anime({
+        targets: "#heartSVG path",
+        opacity: [1, 0.5],
+        duration: 900,
+        easing: "linear",
+        direction: "alternate",
+        loop: true,
+    });
+
+    // Heartbeat size animation
+    anime({
+        targets: "#heartSVG",
+        scale: [1, 1.05], // Scale from normal size to slightly larger
+        duration: 1000,
+        easing: "easeInOutSine",
+        direction: "alternate",
+        loop: true,
+    });
+
+    // Color change animation
+    anime({
+        targets: "#heartSVG path",
+        fill: ["#FFF6E0", "#D8D9DA"], // Transitioning from main color to black
+        duration: 1000,
+        easing: "easeInOutSine",
+        direction: "alternate",
+        loop: true,
+    });
+</script>
+
+</html>
