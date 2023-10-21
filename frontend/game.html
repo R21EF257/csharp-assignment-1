@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+    <link rel="icon" type="image/png" href="favicon/favicon.png">
+    <style>
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            margin: 0px;
+            font-family: "Inter", sans-serif;
+        }
+
+        body {
+            background-color: black;
+            font-family: "Inter", sans-serif;
+            margin: 0px;
+        }
+
+        .circle {
+            position: fixed;
+            top: 50%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .circle-left {
+            left: 0;
+            transform: translate(-50%, -50%);
+        }
+
+        .circle-right {
+            right: 0;
+            transform: translate(50%, -50%);
+        }
+
+        .circle-content {
+            padding: 50px 0;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        #computer h1 {
+            color: #272829;
+            font-size: 40px;
+            font-weight: 800;
+            padding: 0 38%;
+        }
+
+        #player h1 {
+            color: #FFF6E0;
+            font-size: 50px;
+            font-weight: 800;
+            padding: 0 22vw;
+        }
+
+        #game-control {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 37vh;
+        }
+
+        #game-control-1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 23vh;
+        }
+
+        .button {
+            padding: 10px 40px;
+            border-radius: 60px;
+            border: none;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 40px;
+            font-weight: 800;
+        }
+
+        .play {
+            background-color: #272829;
+            /* Dark background for the play button */
+            color: #FFF6E0;
+            /* Light font color */
+        }
+
+        .button-right {
+            background-color: #FFF6E0;
+            /* Light background for the choices */
+            color: #272829;
+            /* Dark font color */
+        }
+
+        /* CSS for Rock, Scissors, and Paper buttons inside the right circle */
+        #rightCircle #player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* Center the buttons vertically */
+            gap: 10px;
+            /* Gap between the buttons */
+        }
+
+        .button-selected {
+            background-color: #61677A;
+            /* This is a shade of blue. Adjust as needed. */
+            color: #D8D9DA;
+        }
+
+        .button-correct-left {
+            background-color: #78E452;
+            /* This is a shade of green. Adjust as needed. */
+            color: #272829;
+        }
+
+        .button-wrong-left {
+            background-color: #F46335;
+            /* This is a shade of green. Adjust as needed. */
+            color: #272829;
+        }
+
+        .button-correct-right {
+            background-color: #272829;
+            /* This is a shade of green. Adjust as needed. */
+            color: #78E452;
+        }
+
+        .button-wrong-right {
+            background-color: #272829;
+            /* This is a shade of green. Adjust as needed. */
+            color: #F46335;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="leftCircle" class="circle circle-left">
+        <div id="computer" class="circle-content">
+            <h1>Computer</h1>
+            <div id="game-control">
+                <div id="game-play" class="button play" onclick="playGame()">Play</div>
+            </div>
+        </div>
+    </div>
+    <div id="rightCircle" class="circle circle-right">
+        <div id="player" class="circle-content">
+            <h1>Player</h1>
+            <div id="game-control-1">
+                <div id="rock" class="button button-right" name="select">Rock</div>
+                <div id="scissors" class="button button-right" name="select">Scissors</div>
+                <div id="paper" class="button button-right" name="select">Paper</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Define a timeline for the left circle
+            var leftCircleTimeline = anime.timeline({
+                easing: 'easeOutExpo',
+                duration: 1250,
+                delay: 250,
+            });
+
+            // Add animations to the timeline for the left circle
+            leftCircleTimeline
+                .add({
+                    targets: '#leftCircle',
+                    left: '25vw', // move to the middle of the left half of the screen
+                    backgroundColor: '#FFF6E0', // Change color as needed
+                })
+                .add({
+                    targets: '#leftCircle',
+                    scale: 1, // scale up to fill half the screen, adjust as needed
+                    top: 0,
+                    left: 0,
+                    width: '50vw', // width of half the screen
+                    height: '100vh', // full height of the screen
+                    borderRadius: ['100%', '0%'], // from circle to square
+                    complete: function (anim) {
+                        document.getElementById('leftCircle').classList.add('full-screen');
+                    }
+                });
+
+            // Define a timeline for the right circle
+            var rightCircleTimeline = anime.timeline({
+                easing: 'easeOutExpo',
+                duration: 1250,
+                delay: 250,
+            });
+
+            // Add animations to the timeline for the right circle
+            rightCircleTimeline
+                .add({
+                    targets: '#rightCircle',
+                    right: '25vw', // move to the middle of the right half of the screen
+                    backgroundColor: '#272829', // Change color as needed
+                })
+                .add({
+                    targets: '#rightCircle',
+                    scale: 1, // scale up to fill half the screen, adjust as needed
+                    top: 0,
+                    right: 0,
+                    width: '50vw', // width of half the screen
+                    height: '100vh', // full height of the screen
+                    borderRadius: ['100%', '0%'], // from circle to square
+                    complete: function (anim) {
+                        document.getElementById('rightCircle').classList.add('full-screen');
+                    }
+                });
+
+            leftCircleTimeline.finished.then(() => {
+                // Wait for the first animation to complete and then fade in the content
+                let leftContent = document.querySelector('#leftCircle .circle-content');
+                leftContent.style.opacity = '1'; // Set to '0' to fade out if content should disappear
+                // If you plan to change content and fade it back in, you would update the content here and then set opacity back to '1'
+            });
+
+            rightCircleTimeline.finished.then(() => {
+                // Wait for the first animation to complete and then fade in the content
+                let rightContent = document.querySelector('#rightCircle .circle-content');
+                rightContent.style.opacity = '1'; // Set to '0' to fade out if content should disappear
+                // If you plan to change content and fade it back in, you would update the content here and then set opacity back to '1'
+            });
+        });
+
+        // Function to post data to the API
+        async function postData(url = '', data = {}) {
+            // Default options are marked with *
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                    // If you need to send a token or any other authorization information, include it here
+                    // 'Authorization': 'Bearer YOUR_TOKEN'
+                },
+                body: JSON.stringify(data) // body data type must match "Content-Type" header
+            });
+
+            return response.json(); // parses JSON response into native JavaScript objects
+        }
+
+        // Data to be sent to the API
+        let data = {
+            playerMove: "Rock"
+        };
+        // Get all buttons
+        const buttons = document.querySelectorAll("div[name='select']");
+        // URL of your API
+        const apiURL = 'http://127.0.0.1:5237/game';
+
+        // Call the function on click of the 'Play' button
+        const playGame = () => {
+            postData(apiURL, data)
+                .then(data => {
+                    console.log(data); // Log data to the console
+                    if (data.result !== 'Draw') {
+                        buttons.forEach(innerButton => {
+                            innerButton.classList.remove('button-selected');
+                        });
+                    }
+                    document.getElementById('game-play').textContent = data.computerMove;
+
+                    if (data.result === "Computer Wins") {
+                        document.getElementById('game-play').classList.add('button-correct-right');
+                        buttons.forEach(innerButton => {
+                            if (data.playerMove === innerButton.textContent) {
+                                innerButton.classList.add('button-wrong-left');
+                            }
+                        });
+                    } else if (data.result === "Player Wins") {
+                        document.getElementById('game-play').classList.add('button-wrong-right');
+                        buttons.forEach(innerButton => {
+                            if (data.playerMove === innerButton.textContent) {
+                                innerButton.classList.add('button-correct-left');
+                            }
+                        });
+                    } else {
+                        document.getElementById('game-play').textContent = 'Draw';
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error); // Log errors, if any
+                });
+        }
+
+        // Add event listeners to each button
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                document.getElementById('game-play').textContent = 'Play';
+                document.getElementById('game-play').classList.remove('button-correct-right');
+                document.getElementById('game-play').classList.remove('button-wrong-right');
+
+                buttons.forEach(innerButton => {
+                    innerButton.classList.remove('button-wrong-left');
+                    innerButton.classList.remove('button-correct-left');
+                });
+                // Remove 'button-selected' class from all buttons
+                buttons.forEach(innerButton => {
+                    innerButton.classList.remove('button-selected');
+                });
+
+                // Add 'button-selected' class to the clicked button
+                this.classList.add('button-selected');
+
+                // Add Selected button text to data object
+                data.playerMove = this.textContent;
+            });
+        });
+    </script>
+
+</body>
+
+</html>

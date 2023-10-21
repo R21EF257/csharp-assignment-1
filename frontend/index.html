@@ -30,7 +30,7 @@
             flex-direction: column;
             align-items: stretch;
             justify-content: center;
-            height: 100vh;
+            height: 95vh;
         }
 
         #play {
@@ -181,12 +181,12 @@
     -128 31 -137 16z" />
                 </g>
             </svg>
-            <button id="play">Play</button>
+            <button id="play" onclick="redirectToPage()">Play</button>
         </div>
     </main>
     <footer>
         <p>
-            Made with <span class="heart">♥</span>
+            Made with <span class="heart">♥</span> by 
             <a href="https://www.linkedin.com/in/sahana-karishetti-student/">Sahana Karishetti</a>
             © 2023 -
             <a href="https://github.com/R21EF257/csharp-assignment-1">GitHub</a>
@@ -194,6 +194,9 @@
     </footer>
 </body>
 <script>
+    function redirectToPage() {
+        window.location.href = 'game.html';
+    }
     // Blink animation
     anime({
         targets: "#heartSVG path",
