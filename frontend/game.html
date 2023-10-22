@@ -267,6 +267,13 @@
 
         // Call the function on click of the 'Play' button
         const playGame = () => {
+            document.getElementById('game-play').classList.remove('button-correct-right');
+            document.getElementById('game-play').classList.remove('button-wrong-right');
+
+            buttons.forEach(innerButton => {
+                innerButton.classList.remove('button-wrong-left');
+                innerButton.classList.remove('button-correct-left');
+            });
             postData(apiURL, data)
                 .then(data => {
                     console.log(data); // Log data to the console
@@ -275,6 +282,11 @@
                             innerButton.classList.remove('button-selected');
                         });
                     }
+                    buttons.forEach(innerButton => {
+                        if (data.playerMove === innerButton.textContent) {
+                            innerButton.classList.add('button-selected');
+                        }
+                    });
                     document.getElementById('game-play').textContent = data.computerMove;
 
                     if (data.result === "Computer Wins") {
