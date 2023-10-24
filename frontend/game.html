@@ -145,6 +145,11 @@
             /* This is a shade of green. Adjust as needed. */
             color: #F46335;
         }
+
+        .server-down {
+            background-color: #E6534B;
+            color: white;
+        }
     </style>
 </head>
 
@@ -241,19 +246,27 @@
         });
 
         // Function to post data to the API
-        async function postData(url = '', data = {}) {
-            // Default options are marked with *
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                    // If you need to send a token or any other authorization information, include it here
-                    // 'Authorization': 'Bearer YOUR_TOKEN'
-                },
-                body: JSON.stringify(data) // body data type must match "Content-Type" header
-            });
+        async function postData(url = '', data = {}, timeout = 3000) { // timeout in milliseconds
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
 
-            return response.json(); // parses JSON response into native JavaScript objects
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // If you need to send a token or any other authorization information, include it here
+                        // 'Authorization': 'Bearer YOUR_TOKEN'
+                    },
+                    body: JSON.stringify(data), // body data type must match "Content-Type" header
+                    signal: controller.signal
+                });
+
+                clearTimeout(id);
+                return response.json(); // parses JSON response into native JavaScript objects
+            } catch (error) {
+                throw error; // This will be a FetchError with error.name === 'AbortError' if it times out
+            }
         }
 
         // Data to be sent to the API
@@ -267,13 +280,18 @@
 
         // Call the function on click of the 'Play' button
         const playGame = () => {
+
             document.getElementById('game-play').classList.remove('button-correct-right');
             document.getElementById('game-play').classList.remove('button-wrong-right');
+            
 
             buttons.forEach(innerButton => {
                 innerButton.classList.remove('button-wrong-left');
                 innerButton.classList.remove('button-correct-left');
             });
+            document.getElementById('game-play').textContent = 'Play';
+            document.getElementById('game-play').classList.remove('server-down');
+            
             postData(apiURL, data)
                 .then(data => {
                     console.log(data); // Log data to the console
@@ -308,7 +326,14 @@
                     }
                 })
                 .catch((error) => {
-                    console.error('Error:', error); // Log errors, if any
+                    if (error.name === 'AbortError') {
+                        document.getElementById('game-play').textContent = '! Server Down';
+                        document.getElementById('game-play').classList.add('server-down');
+                        console.error('!Server Down - Timeout');
+                    } else {
+                        // Handle other types of errors
+                        console.error('An unexpected error occurred:', error);
+                    }
                 });
         }
 
@@ -316,6 +341,7 @@
         buttons.forEach(button => {
             button.addEventListener('click', function () {
                 document.getElementById('game-play').textContent = 'Play';
+                document.getElementById('game-play').classList.remove('server-down');
                 document.getElementById('game-play').classList.remove('button-correct-right');
                 document.getElementById('game-play').classList.remove('button-wrong-right');
 
