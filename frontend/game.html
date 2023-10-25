@@ -332,6 +332,8 @@
                         console.error('!Server Down - Timeout');
                     } else {
                         // Handle other types of errors
+                        document.getElementById('game-play').textContent = '! Server Down';
+                        document.getElementById('game-play').classList.add('server-down');
                         console.error('An unexpected error occurred:', error);
                     }
                 });
